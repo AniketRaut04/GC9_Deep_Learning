@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+   <!-- NAVIGATION PAGE -->
+   <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="crop_yield">Yield</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="crop_pred">Recommendation</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="pred_yield">Both</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="about_us">About Us</a>
+        </li> 
+      </form>
+    </div>
+  </nav>
+   <!-- NAVIGATION PAGE -->
+      <br>
+
+      <div class="container">
+        <div class="mx-auto">
+
+          <div>
+            <h3 >Crop Yield</h3>
+            <p>
+              Crop Yield refers to the production of Crops in a given area.In this project an attempt is made to predict the yield of crop with high accuracy and minimum error.
+              The Crop yield Prediction is done with the help of Decesion tree.Three algorithms Random Forest,Decesion tree,GradientBoostingRegressor are used to calculate the yield.
+              <h5>Accuracy Table</h5>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ML Algorithm</th>
+                    <th scope="col">Accuracy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">Random Forest</td>
+                    <td>75.26</td>
+                  </tr>
+                  <tr>
+                    <td>Decesion tree</td>
+                    <td>92.04</td>
+                  </tr>
+                  <tr>
+                    <td>GradientBoostingRegressor</td>
+                    <td>67.99</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </p>
+          </div><hr>
+          <div>
+            <h3 >Crop Recommendation</h3>
+            <p>
+              Crop Recommendation refers to prediction of Crop with the help of different factors.LSTM is used to recommend the crops.
+              The time stamps are 10.
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ML Algorithm</th>
+                    <th scope="col">Accuracy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td scope="row">LSTM</td>
+                    <td>70</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </p>
+          </div><hr>
+          <div>
+            <h3 >Crop Yield and Recommendation</h3>
+            <p>
+            This is an integration of Crop yield and recommendation where depending upon the paramters crop as wall as its yield is predicted.
+            First LSTM is used to predict the Crop which as an input along with other parametrs calculates the Yield of the crop.
+
+
+            </p>
+          </div><hr>
+
+
+
+
+
+        </div>
+      </div>
+      
+  
+        
+
+</body>
+</html>
