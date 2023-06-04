@@ -1,6 +1,5 @@
 from flask import Flask,redirect,url_for,render_template,request
 import pickle
-import random
 import numpy as np
 import pandas as pd
 
@@ -106,7 +105,6 @@ def redirect3():
             value = min(temp)
             ind = temp.index(value)
             i = label_encoded[ind]
-        i = random.randint(0,20)
         return render_template("crop_pred.html",crop = crops[int(i)-1])
 
 
@@ -164,7 +162,6 @@ def redirect4():
             value = min(temp)
             ind = temp.index(value)
             i = label_encoded[ind]
-        i = random.randint(0,20)
         District = request.form.get("District")
         Crop = crops[int(i)-1]
         Season = request.form.get("Season")
