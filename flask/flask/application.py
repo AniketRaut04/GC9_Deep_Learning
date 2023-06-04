@@ -19,7 +19,7 @@ crops = ['apple','banana','blackgram','chickpea','coconut','coffee','cotton','gr
 app = Flask(__name__)
 
 @app.route("/")
-def home():
+def home(): 
     return render_template("index.html")     
 
 
@@ -105,7 +105,7 @@ def redirect3():
             value = min(temp)
             ind = temp.index(value)
             i = label_encoded[ind]
-        return render_template("crop_pred.html",nitrogen= crops[int(i)-1])
+        return render_template("crop_pred.html",crop = crops[int(i)-1])
 
 
 @app.route("/pred_yield",methods=['GET','POST'])
@@ -184,7 +184,7 @@ def redirect4():
         new_yield_prediction = crop_yield.predict(new_df1)
 # # print("Predicted Yield:", new_yield_prediction[0]/float(new_df['Area']))
 # print("Predicted Yield:", new_yield_prediction[0])
-        return render_template("pred_yield.html",nitrogen= crops[int(i)-1],Area = new_yield_prediction[0])
+        return render_template("pred_yield.html",crop = crops[int(i)-1],Area = new_yield_prediction[0])
 
 @app.route("/about_us")
 def redirect5():
