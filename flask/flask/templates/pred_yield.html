@@ -37,19 +37,19 @@
         <div class="container w-50 ">
           <h1 class="text-center">Crop Yield and Crop Prediction</h1><hr>
         <form action="{{ url_for('redirect4')}}" method="POST">
-          <!-- <label>N</label> -->
+          <label>N</label>
           <input type="number" id="nitrogen" name="nitrogen" step=0.01 placeholder="Nitrogen" class="form-control"><br>
-          <!-- <label>P</label> -->
+          <label>P</label>
           <input type="number" id="phosphorus" name="phosphorus" step=0.01 placeholder="Phosphorus" class="form-control"><br>
-          <!-- <label>K</label> -->
+          <label>K</label>
           <input type="number" id="potassium" name = "potassium" step=0.01 placeholder="Potassion" class="form-control"><br>
-          <!-- <label>Temperature</label> -->
+          <label>Temperature</label>
           <input type="number" id="temp" name = "temp" step=0.01 placeholder="Temperature" class="form-control"><br>
-          <!-- <label>Rainfall</label> -->
+          <label>Rainfall</label>
           <input type="number" id="rain" name = "rain" step=0.01 placeholder="Rainfall" class="form-control"><br>
-          <!-- <label>Humidity</label> -->
+          <label>Humidity</label>
           <input type="number" id="humid" name = "humid" step=0.01 placeholder="Humidity" class="form-control"><br> 
-          <!-- <label>ph</label> -->
+          <label>ph</label>
           <input type="number" id="ph" name = "ph" step=0.01 placeholder="ph" class="form-control"><br>
 
           <select id="District" name="Season" required="required" class="form-control">
@@ -87,7 +87,7 @@
             <option value="WASHIM">WASHIM</option>
           </select><br>
           
-          <!-- <label>Season</label> -->
+          <label>Season</label>
           <select id="Season" name="Season" required="required" class="form-control">
             <option value="none" selected disabled hidden >Season</option>
             <option value="Kharif">Kharif</option>
@@ -97,7 +97,7 @@
             <option value="Summer">Summer</option>
             <option value="Winter">Winter</option>
           </select><br>
-          <!-- <label>Area</label> -->
+          <label>Area</label>
           <input type="number" id="Area" name = "Area" step=0.01 class="form-control" placeholder="Area(in Acres)"> <br>
           <button type="submit" class = "btn btn-primary form-control">Submit</button>
 

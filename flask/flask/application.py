@@ -6,7 +6,12 @@ import pandas as pd
 model = pickle.load(open('model.pkl', 'rb'))
 crop_yield = pickle.load(open('crop_yield.pkl', 'rb'))
 
-label_encoded = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+# label_encoded = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+label_encoded = [  0.0,6.42857143,12.85714286,19.28571429,25.71428571,
+  32.14285714,38.57142857, 45.0,51.42857143,57.85714286,
+  64.28571429,70.71428571, 77.14285714 ,83.57142857,90.0,
+  96.42857143,102.85714286,109.28571429,115.71428571,122.14285714,
+ 128.57142857, 135.0]
 crops = ['apple','banana','blackgram','chickpea','coconut','coffee','cotton','grapes','jute','kidneybeans','lentil','maize','mango','mothbeans',
  'mungbean','muskmelon','orange','papaya','pigeonpeas','pomegranate',
  'rice','watermelon']
@@ -44,8 +49,8 @@ def redirect1():
         new_df = new_df.reindex(columns=dummy_cols.columns, fill_value=0)
         new_df1 = scaler.transform(new_df)
         new_yield_prediction = crop_yield.predict(new_df1)
-# # print("Predicted Yield:", new_yield_prediction[0]/float(new_df['Area']))
-# print("Predicted Yield:", new_yield_prediction[0])
+        # # print("Predicted Yield:", new_yield_prediction[0]/float(new_df['Area']))
+        # print("Predicted Yield:", new_yield_prediction[0])
         return render_template("crop_yield.html",Area = new_yield_prediction[0])
 
 
@@ -89,18 +94,18 @@ def redirect3():
         arr=scaler.fit_transform(arr)
         arr = arr.reshape(1,10,7)
         result = model.predict(arr)
-        inv = np.repeat(result,7, axis=-1)
-        inv_scaler = scaler.inverse_transform(inv)[:,0]
-        for j in inv_scaler:
+        # inv = np.repeat(result,7, axis=-1)
+        # inv_scaler = scaler.inverse_transform(inv)[:,0]
+        for j in result:
             temp = []
-        for k in label_encoded:
-            diff = j - k
-            diff = int(abs(diff))
-            temp.append(diff)
+            for k in label_encoded:
+                diff = j - k
+                diff = int(abs(diff))
+                temp.append(diff)
             value = min(temp)
             ind = temp.index(value)
-            index = label_encoded[ind]
-        return render_template("crop_pred.html",nitrogen= crops[index-1])
+            i = label_encoded[ind]
+        return render_template("crop_pred.html",nitrogen= crops[int(i)-1])
 
 
 @app.route("/pred_yield",methods=['GET','POST'])
@@ -139,17 +144,26 @@ def redirect4():
         result = model.predict(arr)
         inv = np.repeat(result,7, axis=-1)
         inv_scaler = scaler.inverse_transform(inv)[:,0]
-        for j in inv_scaler:
+        # for j in inv_scaler:
+        #     temp = []
+        # for k in label_encoded:
+        #     diff = j - k
+        #     diff = int(abs(diff))
+        #     temp.append(diff)
+        #     value = min(temp)
+        #     ind = temp.index(value)
+        #     index = label_encoded[ind]
+        for j in result:
             temp = []
-        for k in label_encoded:
-            diff = j - k
-            diff = int(abs(diff))
-            temp.append(diff)
+            for k in label_encoded:
+                diff = j - k
+                diff = int(abs(diff))
+                temp.append(diff)
             value = min(temp)
             ind = temp.index(value)
-            index = label_encoded[ind]
+            i = label_encoded[ind]
         District = request.form.get("District")
-        Crop = crops[index-1]
+        Crop = crops[int(i)-1]
         Season = request.form.get("Season")
         Area = request.form.get("Area")
         dataset_new = pd.read_csv('crop_yield.csv')
@@ -170,16 +184,12 @@ def redirect4():
         new_yield_prediction = crop_yield.predict(new_df1)
 # # print("Predicted Yield:", new_yield_prediction[0]/float(new_df['Area']))
 # print("Predicted Yield:", new_yield_prediction[0])
-        return render_template("pred_yield.html",nitrogen= crops[index-1],Area = new_yield_prediction[0])
+        return render_template("pred_yield.html",nitrogen= crops[int(i)-1],Area = new_yield_prediction[0])
 
 @app.route("/about_us")
 def redirect5():
     return render_template("about_us.html") 
-
-
-
-
-
+  
 if(__name__) == "__main__":
     app.run()
     
