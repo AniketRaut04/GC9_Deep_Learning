@@ -66,7 +66,7 @@ def redirect3():
     if request.method == 'GET':
         return render_template("crop_pred.html")
     if request.method == 'POST':
-        arr = np.array([[[103,40,30,27.309018,55.196224,6.348316,141.483164],[118,31,34,27.548230,62.881792,6.123796,181.417081],
+        arr = np.array([[[0,10,15,    17,19,5,33],[10,21,19,   17.548230,20.881792,6.123796,40.417081],
        [106,21,35,25.627355,57.041511,7.428524,188.550654],
        [116,38,34,23.292503,50.045570,6.020947,183.468585],
        [97,35,26,24.914610,53.741447,6.334610,166.254931],
@@ -89,25 +89,33 @@ def redirect3():
         arr[0][9][4] = rain
         arr[0][9][5] = humid
         arr[0][9][6] = ph
-        arr = arr.reshape(10,7)
+        temp = arr.reshape(10,7)
         from sklearn.preprocessing import MinMaxScaler
         scaler=MinMaxScaler()
-        arr=scaler.fit_transform(arr)
-        arr = arr.reshape(1,10,7)
+        temp=scaler.fit_transform(temp)
+        arr = temp.reshape(1,10,7)
         result = model.predict(arr)
-        # inv = np.repeat(result,7, axis=-1)
-        # inv_scaler = scaler.inverse_transform(inv)[:,0]
-        for j in result:
-            temp = []
+        # result = np.repeat(result, temp.shape[1], axis=-1)
+        # result_sc = scaler.inverse_transform(result[: ,0])
+        inv = np.repeat(result,7, axis=-1)
+        inv_scaler = scaler.inverse_transform(inv)[:,0]
+        temp = []
+        value = []
+        for j in inv_scaler:
             for k in label_encoded:
                 diff = j - k
                 diff = int(abs(diff))
                 temp.append(diff)
-            value = min(temp)
-            ind = temp.index(value)
-            i = label_encoded[ind]
-        i = random.randint(0,20)
-        return render_template("crop_pred.html",crop = crops[int(i)-1])
+                value.append(k)
+        v = min(temp)
+        ind = temp.index(v)
+        i = value[ind]
+        index = label_encoded.index(i)
+            # value = min(temp)
+            # ind = temp.index(value)
+            # i = label_encoded[ind]
+        # i = random.randint(1,20)
+        return render_template("crop_pred.html",crop = crops[int(index)])
 
 
 @app.route("/pred_yield",methods=['GET','POST'])
@@ -164,7 +172,7 @@ def redirect4():
             value = min(temp)
             ind = temp.index(value)
             i = label_encoded[ind]
-        i = random.randint(0,20)
+        # i = random.randint(1,20)
         District = request.form.get("District")
         Crop = crops[int(i)-1]
         Season = request.form.get("Season")
